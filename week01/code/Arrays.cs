@@ -12,8 +12,19 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+        List<double> multiples = new();
+        //make list
+        for (double i = 0; i < length; i++)
+        // do iteration
+        {
+            double newNumber = number + (number * i);
+            //decided this is better than just multiplying the number
+            multiples.Add(newNumber);
+        }
+        double[] multiplesArray = multiples.ToArray();
+        //change from list to array
 
-        return []; // replace this return statement with your own
+        return multiplesArray; // replace this return statement with your own
     }
 
     /// <summary>
@@ -29,5 +40,6 @@ public static class Arrays
         // Remember: Using comments in your program, write down your process for solving this problem
         // step by step before you write the code. The plan should be clear enough that it could
         // be implemented by another person.
+        
     }
 }
