@@ -11,24 +11,69 @@ public class CustomerService {
         // Test Cases
 
         // Test 1
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: add a customer
+        // Expected Result: display customer that was added
         Console.WriteLine("Test 1");
+        var cs = new CustomerService(5);
+        cs.AddNewCustomer();
+        
 
         // Defect(s) Found: 
 
         Console.WriteLine("=================");
 
         // Test 2
-        // Scenario: 
-        // Expected Result: 
+        // Scenario: queue size defaults to 10 when given invalid number
+        // Expected Result: it should display 10
         Console.WriteLine("Test 2");
+        cs = new CustomerService(0);
+        Console.WriteLine("it should display 10:" + cs);
 
         // Defect(s) Found: 
 
         Console.WriteLine("=================");
 
-        // Add more Test Cases As Needed Below
+        // Test 3
+        // Scenario: if queue is full, error will display when adding more
+        // Expected Result: error message should appear
+        Console.WriteLine("Test 3");
+        cs = new CustomerService(2);
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        Console.WriteLine($"service queue: {cs}");
+
+        // Defect(s) Found: 
+
+        Console.WriteLine("=================");
+
+        // Test 4
+        // Scenario: serving a customer will remove from queue
+        // Expected Result: customer no longer in queue
+        Console.WriteLine("Test 4");
+        cs = new CustomerService(4);
+        cs.AddNewCustomer();
+        cs.AddNewCustomer();
+        Console.WriteLine($"service queue should be 2: {cs}");
+        cs.ServeCustomer();
+        Console.WriteLine($"service queue should be 1: {cs}");
+
+
+        // Defect(s) Found: 
+
+        Console.WriteLine("=================");
+
+        // Test 5
+        // Scenario: if the queue is empty while serving, error will show
+        // Expected Result: error will display
+        Console.WriteLine("Test 5");
+        cs = new CustomerService(4);
+        cs.ServeCustomer();
+
+
+        // Defect(s) Found: 
+
+        Console.WriteLine("=================");
     }
 
     private readonly List<Customer> _queue = new();
