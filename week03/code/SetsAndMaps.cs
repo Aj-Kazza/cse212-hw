@@ -22,7 +22,27 @@ public static class SetsAndMaps
     public static string[] FindPairs(string[] words)
     {
         // TODO Problem 1 - ADD YOUR CODE HERE
-        return [];
+
+        //create hashSet to hold pairs and their indexes
+        var pair = new HashSet<string>();
+        //create list of strings containing results of pairs and index changed to string
+        var results = new List<string>();
+
+        foreach (var word in words)
+        {
+            //made string to sequence, reversed, change to array and then back to string
+            var reversed = new string(word.Reverse().ToArray());
+            //duplicates not allowed
+            if (word == reversed)
+                continue;
+            if (pair.Contains(reversed))
+            {
+                results.Add($"{reversed} & {word}");
+            }
+            pair.Add(word);
+        }
+
+        return results.ToArray();
     }
 
     /// <summary>
@@ -43,6 +63,21 @@ public static class SetsAndMaps
         {
             var fields = line.Split(",");
             // TODO Problem 2 - ADD YOUR CODE HERE
+
+            //looking for degrees which is the fourth column, so index[3]
+            var degree = fields[3];
+
+            //if degree exist in dictionary add count
+            if (degrees.ContainsKey(degree))
+            {
+                degrees[degree]++;
+            }
+            //if degree does not exist in dictionary, create item in dictionary with key and initialize amount at 1
+            else
+            {
+                degrees[degree] = 1;
+            }
+
         }
 
         return degrees;
@@ -67,7 +102,45 @@ public static class SetsAndMaps
     public static bool IsAnagram(string word1, string word2)
     {
         // TODO Problem 3 - ADD YOUR CODE HERE
-        return false;
+
+        //lower case for case sensitive and removing spaces
+        var wordLower1 = word1.Replace(" ", "").ToLower();
+        var wordLower2 = word2.Replace(" ", "").ToLower();
+
+        //make a dictionary with key of characters and amount
+        var letters = new Dictionary <char, int>();
+
+        foreach (var letter in wordLower1)
+        {
+            if (letters.ContainsKey(letter))
+            {
+                letters[letter]++;
+            }
+            else
+            {
+                letters[letter] = 1;
+            }
+        }
+
+        foreach (var letter in wordLower2)
+        {
+            if (!letters.ContainsKey(letter))
+            {
+                return false;
+            }
+            letters[letter]--;
+        }
+
+        foreach (var count in letters.Values)
+        {
+            if (count != 0)
+            {
+                return false;
+            }
+        }
+
+
+        return true;
     }
 
     /// <summary>
@@ -101,6 +174,15 @@ public static class SetsAndMaps
         // on those classes so that the call to Deserialize above works properly.
         // 2. Add code below to create a string out each place a earthquake has happened today and its magitude.
         // 3. Return an array of these string descriptions.
-        return [];
+
+        List<string> summaries = new List<string>();
+
+        foreach (Feature feature in featureCollection.Features)
+        {
+            summaries.Add(feature.Properties.Place + " - Mag " + feature.Properties.Mag);
+        }
+
+
+        return summaries.ToArray();
     }
 }
